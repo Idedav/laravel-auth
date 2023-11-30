@@ -11,6 +11,11 @@
                     <i class="fa-solid fa-folder"></i> Projects
                 </a>
             </li>
+            <li><a href="{{ route('admin.projects.create') }}"
+                    class="{{ Route::currentRouteName() === 'admin.projects.create' ? 'active' : '' }}">
+                    <i class="fa-solid fa-folder-plus"></i> New Project
+                </a>
+            </li>
             <li><a href="{{ route('admin.tecnologies.index') }}"
                     class="{{ Route::currentRouteName() === 'admin.tecnologies.index' ? 'active' : '' }}">
                     <i class="fa-solid fa-code"></i> Tecnologies

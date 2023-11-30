@@ -85,7 +85,7 @@ class TecnologyController extends Controller
 
         $form_data = $request->all();
 
-        dd($form_data);
+        //
 
         $exixts = Tecnology::where('name', $request->name)->first();
         if ($exixts) {

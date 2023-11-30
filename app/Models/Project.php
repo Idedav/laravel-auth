@@ -9,6 +9,12 @@ use Illuminate\Support\Str;
 class Project extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'slug',
+        'description',
+    ];
     public static function generateSlug($string)
     {
 
