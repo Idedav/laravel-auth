@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Tecnology;
 use Illuminate\Support\Str;
+use App\Functions\Helper;
 
 class TecnologyController extends Controller
 {
@@ -79,9 +80,27 @@ class TecnologyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Tecnology $tecnology)
     {
-        //
+
+        $form_data = $request->all();
+
+        dd($form_data);
+
+        $exixts = Tecnology::where('name', $request->name)->first();
+        if ($exixts) {
+            return redirect()->route('admin.tecnologies.index')->with('error', 'Tecnology already exists');
+        }
+
+        $form_data['slug'] = Helper::generateSlug($request->name, Tecnology::class);
+
+
+
+        $tecnology->update($form_data);
+
+
+
+        return redirect()->route('admin.tecnologies.index')->with('success', 'Tecnology Updated successfully');
     }
 
     /**
@@ -90,9 +109,8 @@ class TecnologyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($tecnology)
+    public function destroy(Tecnology $tecnology)
     {
-        $tecnology = Tecnology::find($tecnology);
         $tecnology->delete();
         return redirect()->route('admin.tecnologies.index')->with('success', 'Tecnology deleted successfully');
     }

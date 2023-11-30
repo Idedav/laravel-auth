@@ -26,12 +26,10 @@
                     <td>{{ $project->description }}</td>
                     <td class="d-flex"><a href="{{ route('admin.projects.show', $project) }}" class="btn btn-primary me-2"><i
                                 class="fa-solid fa-eye"></i></a>
-                        <form action="{{ route('admin.projects.destroy', $project) }}" method="POST"
-                            onsubmit="return confirm('Are you sure you want to delete {{ $project->name }}?')">
-                            @csrf
-                            @method('DELETE')
-                            <button type="sumbit" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                        </form>
+                        @include('admin.partials.form-delete', [
+                            'route' => route('admin.projects.destroy', $project),
+                            'name' => $project->name,
+                        ])
                     </td>
                 </tr>
             @endforeach

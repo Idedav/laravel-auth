@@ -34,17 +34,30 @@
             @foreach ($tecnologies as $tecnology)
                 <tr>
                     <td>{{ $tecnology->id }}</td>
-                    <td>{{ $tecnology->name }}</td>
-                    <td class="text-end">
-                        <form action="{{ route('admin.tecnologies.destroy', $tecnology) }}" method="POST"
-                            onsubmit="return confirm('Are you sure you want to delete {{ $tecnology->name }}?')">
+                    <td>
+                        <form action="{{ route('admin.tecnologies.update', $tecnology) }}" method="POST" id="form-edit">
                             @csrf
-                            @method('DELETE')
-                            <button type="sumbit" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                            @method('PUT')
+                            <input class="custom-input" type="text" value="{{ $tecnology->name }}" name="name">
                         </form>
+                    </td>
+                    <td class="d-flex justify-content-end">
+                        <button onclick="submitForm()" class="btn btn-warning me-2"><i
+                                class="fa-solid fa-pencil"></i></button>
+                        @include('admin.partials.form-delete', [
+                            'route' => route('admin.tecnologies.destroy', $tecnology),
+                            'name' => $tecnology->name,
+                        ])
                     </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
+
+    <script>
+        function submitForm() {
+            const form = document.getElementById('form-edit');
+            form.submit();
+        }
+    </script>
 @endsection
