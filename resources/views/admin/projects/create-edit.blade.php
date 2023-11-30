@@ -4,12 +4,17 @@
 @section('content')
     <h1>{{ $title }}</h1>
 
-    <form action="{{ $route }}" method="POST">
+    <form action="{{ $route }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method($method)
         <div class="mb-3">
             <label for="name" class="form-label">Project Name:</label>
             <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $project?->name) }}">
+        </div>
+        <div class="mb-3">
+            <label for="image" class="form-label">Image:</label>
+            <input type="file" class="form-control" id="image" name="image"
+                value="{{ old('image', $project?->image) }}">
         </div>
         <div class="mb-3">
             <label for="description">Description:</label>
